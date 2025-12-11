@@ -65,64 +65,97 @@ const SKILLS = [
 
 const PROJECTS = [
   {
-    title: "Personal Portfolio Website",
+    title: "StayConnected – Full Stack News Blogging Platform",
     description:
-      "Design of a beautiful and simple portfolio website that showcases a person's skills, education, and projects using HTML and CSS.",
-    date: "March 2024",
-    tags: ["HTML", "CSS", "Design"],
-    github: "https://github.com/bathrivijay05",
-    preview: "https://github.com/bathrivijay05",
-    hasPreview: true,
+      "The platform includes JWT authentication, a rich text editor with image uploads, a draft–publish workflow, a user dashboard, category-based filtering, and a fully responsive UI, built using React, Express.js, and Supabase (PostgreSQL + Storage).",
+    date: "July 2025",
+    tags: ["React.js", "Node.js", "Express.js", "PostgreSQL", "Supabase"],
+    github: "https://github.com/bathrivijay05/StayConnectedBlog",
+    preview: "https://stayconnected-blog.vercel.app/",
+    img: "/stayconnected.png",
+  },
+  {
+    title: "Agrovaa - Smart Crop System",
+    description:
+      "A simple ML-based web app that recommends suitable crops and predicts crop yield using Flask with XGBoost and scikit-learn on the backend, and a React + Vite frontend.",
+    date: "Upcoming",
+    tags: ["React.js", "Scikit-learn", "Python", "Flask"],
+    github: null,
+    preview: null,
+    img: "/agrovaa.png",
+  },
+  {
+    title: "Quiz Web Application",
+    description:
+      "An interactive quiz web app built with JavaScript that extracts NPTEL assignment questions from PDFs and organizes them by subject, year, and week, featuring a responsive interface with instant answer validation.",
+    date: "October 2025",
+    tags: ["HTML", "CSS", "Javascript"],
+    github: "https://github.com/bathrivijay05/QuizApp",
+    preview: "https://quiz-app-2k25.vercel.app/",
+    img: "/quizapp.png",
   },
   {
     title: "Weather Dashboard",
     description:
       "Based on user-inputted location, it shows relevant weather information using OpenWeatherMap API.",
     date: "March 2024",
-    tags: ["JavaScript", "API", "DOM"],
+    tags: ["JavaScript", "API"],
     github: "https://github.com/bathrivijay05",
-    preview: "#",
-    hasPreview: false, // API keys usually require backend proxy, disabling preview for safety
+    preview: null,
+    img: "/weatherapp.png",
   },
   {
     title: "Tic-Tac-Toe Game",
     description:
       "A web application for the Tic-Tac-Toe game where users can play against each other or against the computer.",
     date: "March 2024",
-    tags: ["JavaScript", "Game Logic"],
-    github: "https://github.com/bathrivijay05",
-    preview: "#",
-    hasPreview: true,
+    tags: ["JavaScript"],
+    github: "https://github.com/bathrivijay05/Tic-Tac-Toe-Game",
+    preview: "https://bathrivijay05.github.io/Tic-Tac-Toe-Game/",
+    img: "/tic-tac-toe.png",
   },
   {
     title: "Stopwatch Web App",
     description:
       "Responsive stopwatch application implemented using basic HTML, CSS, and JavaScript, including lap time functionality.",
     date: "March 2024",
-    tags: ["JavaScript", "Timer"],
-    github: "https://github.com/bathrivijay05",
-    preview: "#",
-    hasPreview: true,
+    tags: ["JavaScript"],
+    github: "https://github.com/bathrivijay05/Stopwatch-Web-Application",
+    preview: "https://bathrivijay05.github.io/Stopwatch-Web-Application/",
+    img: "/stopwatch.png",
   },
   {
     title: "Responsive Landing Page",
     description:
       "A responsive single-page landing page design that can be used by a Tech Startup.",
     date: "March 2024",
-    tags: ["CSS", "Responsive", "UI"],
-    github: "https://github.com/bathrivijay05",
-    preview: "#",
-    hasPreview: true,
+    tags: ["HTML", "CSS"],
+    github: "https://github.com/bathrivijay05/Responsive-Landing-Page-Design",
+    preview: "https://bathrivijay05.github.io/Responsive-Landing-Page-Design/",
+    img: "/landing-page.png",
+  },
+  {
+    title: "Personal Portfolio Website Design",
+    description:
+      "A simple portfolio website that showcases a person's skills, education, and projects.",
+    date: "March 2024",
+    tags: ["HTML", "CSS"],
+    github:
+      "https://github.com/bathrivijay05/Personal-Portfolio-Website-Design",
+    preview:
+      "https://bathrivijay05.github.io/Personal-Portfolio-Website-Design/",
+    img: "/portfolio.png",
   },
   {
     title: "Simple Pizza Billing",
     description:
       "GUI-based pizza billing system using Tkinter allowing users to select options and calculate total cost.",
     date: "May 2023",
-    tags: ["Python", "Tkinter", "GUI"],
-    github: "https://github.com/bathrivijay05",
+    tags: ["Python", "Tkinter"],
+    github:
+      "https://github.com/bathrivijay05/simple-pizza-billing-using-tkinter",
     preview: null,
-    hasPreview: false, // Desktop app
+    img: "/pizza-billing.png",
   },
 ];
 
@@ -165,13 +198,16 @@ const ProjectCard = ({ project }) => {
     project.title
   )}`;
 
+  const hasGithub = project.github && project.github !== "#";
+  const hasPreview = project.preview && project.preview !== "#";
+
   return (
     <div className="group bg-white dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
       <div className="relative overflow-hidden h-48 bg-slate-100 dark:bg-slate-800">
         <img
-          src={bgImage}
+          src={project.img ? project.img : bgImage}
           alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
         />
         <div className="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700">
           {project.date}
@@ -198,16 +234,27 @@ const ProjectCard = ({ project }) => {
         </div>
 
         <div className="flex items-center gap-3 mt-auto">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
-          >
-            <Github size={16} />
-            Code
-          </a>
-          {project.hasPreview && (
+          {hasGithub ? (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-medium hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors"
+            >
+              <Github size={16} />
+              Code
+            </a>
+          ) : (
+            <button
+              disabled
+              className="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-300 dark:bg-slate-700 text-slate-500 dark:text-slate-500 text-sm font-medium cursor-not-allowed opacity-70"
+            >
+              <Github size={16} />
+              Code
+            </button>
+          )}
+
+          {hasPreview ? (
             <a
               href={project.preview}
               target="_blank"
@@ -217,6 +264,14 @@ const ProjectCard = ({ project }) => {
               <ExternalLink size={16} />
               Preview
             </a>
+          ) : (
+            <button
+              disabled
+              className="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-600 text-sm font-medium cursor-not-allowed opacity-70"
+            >
+              <ExternalLink size={16} />
+              Preview
+            </button>
           )}
         </div>
       </div>
@@ -335,7 +390,7 @@ export default function App() {
                   {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
                 </button>
 
-                <a
+                {/* <a
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -343,7 +398,7 @@ export default function App() {
                 >
                   <Download size={16} />
                   Resume
-                </a>
+                </a> */}
               </div>
             </div>
 
@@ -380,14 +435,14 @@ export default function App() {
                   {link.label}
                 </a>
               ))}
-              <a
+              {/* <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block px-4 py-3 rounded-lg text-blue-600 dark:text-blue-400 font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
               >
                 Download Resume
-              </a>
+              </a> */}
             </div>
           </div>
         )}
@@ -543,6 +598,7 @@ export default function App() {
                 <li>
                   <a
                     href={PERSONAL_INFO.linkedin}
+                    target="_blank"
                     className="flex items-center gap-2 hover:text-white transition-colors"
                   >
                     <Linkedin size={18} /> LinkedIn
@@ -551,6 +607,7 @@ export default function App() {
                 <li>
                   <a
                     href={PERSONAL_INFO.github}
+                    target="_blank"
                     className="flex items-center gap-2 hover:text-white transition-colors"
                   >
                     <Github size={18} /> GitHub
@@ -559,6 +616,7 @@ export default function App() {
                 <li>
                   <a
                     href={PERSONAL_INFO.leetcode}
+                    target="_blank"
                     className="flex items-center gap-2 hover:text-white transition-colors"
                   >
                     <Code2 size={18} /> LeetCode
@@ -573,6 +631,7 @@ export default function App() {
               <div className="space-y-3">
                 <a
                   href={`mailto:${PERSONAL_INFO.email}`}
+                  target="_blank"
                   className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
                 >
                   <Mail size={18} />
@@ -589,7 +648,8 @@ export default function App() {
 
           <div className="border-t border-slate-800 dark:border-slate-900 mt-12 pt-8 text-center text-sm text-slate-500">
             <p>
-              © {new Date().getFullYear()} Bathrinath V. All rights reserved.
+              © {new Date().getFullYear()} Bathrinath Vijayan. All rights
+              reserved.
             </p>
           </div>
         </div>
